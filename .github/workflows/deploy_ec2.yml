@@ -24,7 +24,7 @@ jobs:
       - name: Variable Substitution in appsettings.json
         uses: microsoft/variable-substitution@v1
         with:
-          files: 'appsettings.json'
+          files: '**/appsettings.json'
         env:
           Trello.AppKey: ${{ secrets.TRELLO_APP_KEY }}
           Trello.UserToken: ${{ secrets.TRELLO_USER_TOKEN }}
