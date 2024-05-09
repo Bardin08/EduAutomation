@@ -34,8 +34,8 @@ jobs:
 
           GitHub.PatToken: ${{ secrets.GH_PAT }}
 
-          TELEGRAM.BotToken: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM.ChannelId: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          Telegram.BotToken: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          Telegram.ChannelId: ${{ secrets.TELEGRAM_CHANNEL_ID }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
