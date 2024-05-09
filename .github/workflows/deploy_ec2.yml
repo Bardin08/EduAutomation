@@ -1,0 +1,70 @@
+name: Deploy to EC2
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_test
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Run Tests
+        run: dotnet test
+
+      - name: Variable Substitution in appsettings.json
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: 'appsettings.json'
+        env:
+          Trello.AppKey: ${{ secrets.TRELLO_APP_KEY }}
+          Trello.UserToken: ${{ secrets.TRELLO_USER_TOKEN }}
+          Trello.BoardId: ${{ secrets.TRELLO_BOARD_ID }}
+          Trello.ListId: ${{ secrets.TRELLO_LIST_ID }}
+
+          GitHub.PatToken: ${{ secrets.GITHUB_PAT }}
+
+          TELEGRAM.BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM.CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/my-api-image .
+          
+          # Extract the release version (adjust if needed)
+          RELEASE_VERSION=$(echo ${{ github.ref }} | cut -d '/' -f 3 | sed 's/^v//') 
+          RELEASE_LABEL="${RELEASE_VERSION}" 
+          
+          docker tag ghcr.io/${{ github.repository }}/my-api-image:latest ghcr.io/${{ github.repository }}/my-api-image:${RELEASE_LABEL} 
+          docker push ghcr.io/${{ github.repository }}/my-api-image --all-tags 
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker stop my-api-container || true  
+            docker rm my-api-container || true  
+            docker pull ghcr.io/${{ github.repository }}/my-api-image:${RELEASE_LABEL}  # Match the tag used when pushing
+            docker run -d -p 5217:80 --name my-api-container ghcr.io/${{ github.repository }}/my-api-image:${RELEASE_LABEL} 
