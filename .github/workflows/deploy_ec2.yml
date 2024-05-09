@@ -46,14 +46,13 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ghcr.io/bardin08/eduautomation/my-api-image .
+          docker build -t ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} .
           
-          # Extract the release version (adjust if needed)
           RELEASE_VERSION=$(echo ${{ github.ref }} | cut -d '/' -f 3 | sed 's/^v//') 
           RELEASE_LABEL="${RELEASE_VERSION}" 
           
-          docker tag ghcr.io/bardin08/eduautomation/my-api-image:latest ghcr.io/bardin08/eduautomation/my-api-image:${RELEASE_LABEL} 
-          docker push ghcr.io/bardin08/eduautomation/my-api-image --all-tags 
+          docker tag ghcr.io/bardin08/eduautomation:latest ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} 
+          docker push ghcr.io/bardin08/eduautomation --all-tags 
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -64,5 +63,5 @@ jobs:
           script: |
             docker stop my-api-container || true  
             docker rm my-api-container || true  
-            docker pull ghcr.io/bardin08/eduautomation/my-api-image:${RELEASE_LABEL}  # Match the tag used when pushing
-            docker run -d -p 5217:80 --name my-api-container ghcr.io/bardin08/eduautomation/my-api-image:${RELEASE_LABEL} 
+            docker pull ghcr.io/bardin08/eduautomation:${RELEASE_LABEL}  # Match the tag used when pushing
+            docker run -d -p 5217:80 --name my-api-container ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} 
