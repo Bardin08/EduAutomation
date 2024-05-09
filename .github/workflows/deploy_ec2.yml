@@ -46,9 +46,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          RELEASE_LABEL="${{ github.event.release.tag_name}}" 
-          docker build -t ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} .
-          docker tag ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} ghcr.io/bardin08/eduautomation:latest
+          docker build -t ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} .
+          docker tag ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} ghcr.io/bardin08/eduautomation:latest
           docker push ghcr.io/bardin08/eduautomation --all-tags 
 
       - name: Deploy to EC2
@@ -58,7 +57,12 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            docker stop my-api-container || true  
-            docker rm my-api-container || true  
-            docker pull ghcr.io/bardin08/eduautomation:${RELEASE_LABEL}  # Match the tag used when pushing
-            docker run -d -p 5217:80 --name my-api-container ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} 
+            docker container ls -q --filter name=edu-automation > /tmp/current_container_id || true  # Get the container ID if it exists
+            if [ -s /tmp/current_container_id ]; then  # Check if previous container exists and is running
+            docker stop $(cat /tmp/current_container_id) || true  # Stop the old container
+            docker rm $(cat /tmp/current_container_id) || true   # Remove the old container
+            fi
+
+            docker login ghcr.io -u bardin08 -p ${{ secrets.GITHUB_TOKEN }} 
+            docker pull ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}}
+            docker run -d -p 5217:80 --name edu-automation ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} 
