@@ -1,7 +1,7 @@
 namespace EduAutomation.Infrastructure.Telegram;
 
-public class TelegramOptions
+public record TelegramOptions
 {
     public const string SectionName = "Telegram";
-    public long ChannelId { get; set; }
+    public long ChannelId { get; init; }
 }

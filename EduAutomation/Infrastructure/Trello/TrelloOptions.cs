@@ -1,3 +1,8 @@
-namespace EduAutomation.Application.Trello;
+namespace EduAutomation.Infrastructure.Trello;
 
-public record TrelloOptions(string BoardId, string ListId);
+public record TrelloOptions
+{
+    public const string SectionName = "Trello";
+    public required string BoardId { get; set; }
+    public required string ListId { get; set; }
+}

@@ -1,6 +1,6 @@
-﻿namespace EduAutomation.Domain.GitHub;
+﻿namespace EduAutomation.Domain.GitHub.Events;
 
-public record RepoCreatedEventPayload(
+public record RepoCreated(
     Repo Repo,
     Org Org,
     User Sender

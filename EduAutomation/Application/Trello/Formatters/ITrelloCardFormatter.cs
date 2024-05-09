@@ -1,6 +1,6 @@
 using EduAutomation.Domain.Trello;
 
-namespace EduAutomation.Application.Formatters;
+namespace EduAutomation.Application.Trello.Formatters;
 
 public interface ITrelloCardFormatter
 {

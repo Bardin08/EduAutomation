@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubRepoAssigner", "GitHubRepoAssigner\GitHubRepoAssigner.csproj", "{4E29D92E-2811-4E83-A7D0-C1A34B25E12C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubUtils", "GitHubUtils\GitHubUtils.csproj", "{4E29D92E-2811-4E83-A7D0-C1A34B25E12C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduAutomation", "EduAutomation\EduAutomation.csproj", "{37B8C40F-923B-40AA-BCF3-42F758E59785}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubUtils.Core", "GitHubUtils.Core\GitHubUtils.Core.csproj", "{F61EDB93-0FF1-4C9F-82DA-715DB8D78C3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{4E29D92E-2811-4E83-A7D0-C1A34B25E12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E29D92E-2811-4E83-A7D0-C1A34B25E12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E29D92E-2811-4E83-A7D0-C1A34B25E12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B8C40F-923B-40AA-BCF3-42F758E59785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B8C40F-923B-40AA-BCF3-42F758E59785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B8C40F-923B-40AA-BCF3-42F758E59785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B8C40F-923B-40AA-BCF3-42F758E59785}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F61EDB93-0FF1-4C9F-82DA-715DB8D78C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F61EDB93-0FF1-4C9F-82DA-715DB8D78C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F61EDB93-0FF1-4C9F-82DA-715DB8D78C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F61EDB93-0FF1-4C9F-82DA-715DB8D78C3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

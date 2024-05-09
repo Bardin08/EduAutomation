@@ -1,8 +1,7 @@
-﻿using Octokit;
+﻿namespace GitHubUtils.Core;
 
-namespace GitHubUtils;
-
-internal record RepoAssignmentOptions(
-    Team Team,
-    string OrganizationName,
+public record RepoAssignRequest(
+    string Repo,
+    string Org,
+    int[] TeamIds,
     bool ReadOnlyAccess = true);

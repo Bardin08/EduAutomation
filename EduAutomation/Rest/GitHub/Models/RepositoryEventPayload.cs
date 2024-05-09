@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TestApi.Rest.GitHub.Models;
+namespace EduAutomation.Rest.GitHub.Models;
 
 [method: JsonConstructor]
 public class RepositoryEventPayload(

@@ -1,7 +1,7 @@
 namespace EduAutomation.Domain.GitHub;
 
 public record Repo(
-    string Id,
+    int? Id,
     string Name,
     string FullName,
     string Url,

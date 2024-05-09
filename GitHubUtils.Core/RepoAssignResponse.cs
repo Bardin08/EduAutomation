@@ -1,6 +1,6 @@
 ﻿namespace GitHubUtils.Core;
 
-public class RepoAssignResponse
-{
-    
-}
+public record RepoAssignResponse(
+    string RepositoryName,
+    string Mode,
+    int TeamId);
