@@ -1,15 +1,14 @@
-﻿using EduAutomation.Rest.GitHub.Models;
+﻿using EduAutomation.Application.GitHub;
+using EduAutomation.Domain.GitHub;
 using GitHubUtils.Core;
-using RepoAssignResponse = EduAutomation.Services.RepoAssignResponse;
 
-namespace EduAutomation.Application.GitHub;
+namespace EduAutomation.Infrastructure.GitHub;
 
-// Domain Service?
 internal class GitHubService(
     IGitHubClientWrapper github,
     ILogger<GitHubService> logger) : IGitHubService
 {
-    public async Task<RepoAssignResponse> AssignRepoToAppropriateTeams(Repository repo)
+    public async Task<RepoAssignResponse> AssignRepoToAppropriateTeams(Repo repo)
     {
         var orgName = repo.Owner.Login;
 

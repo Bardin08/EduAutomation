@@ -1,12 +1,8 @@
-﻿using Telegram.Bot;
+﻿using EduAutomation.Application.Telegram;
+using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 
-namespace EduAutomation.Services;
-
-public interface ITelegramService
-{
-    Task PostToChannel(long chatId, string message);
-}
+namespace EduAutomation.Infrastructure.Telegram;
 
 public class TelegramService(ITelegramBotClient telegramBotClient) : ITelegramService
 {

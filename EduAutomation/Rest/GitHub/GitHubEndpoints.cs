@@ -1,29 +1,21 @@
-﻿using System.Text;
+﻿using EduAutomation.Application.GitHub;
+using EduAutomation.Application.GitHub.Services;
+using EduAutomation.Application.Telegram;
+using EduAutomation.Application.Trello;
+using EduAutomation.Rest.GitHub.Mappers;
+using EduAutomation.Rest.GitHub.Models;
 using Microsoft.AspNetCore.Mvc;
-using TestApi.Rest.GitHub.Models;
-using TestApi.Services;
 
-namespace TestApi.Rest.GitHub;
+namespace EduAutomation.Rest.GitHub;
 
 public class GitHubEndpoints
 {
     public static async ValueTask<IResult> RepositoryCreatedWebhook(
         RepositoryEventPayload payload,
         CancellationToken cancellationToken,
-        [FromServices] IGitHubService github,
-        [FromServices] ITrelloService trello,
-        [FromServices] ITelegramService telegramService,
-        [FromServices] ILogger<GitHubEndpoints> logger)
+        [FromServices] IGitHubWebHookService webHookService)
     {
-        var response = await github.AssignRepoToAppropriateTeams(payload.Repository);
-
-        var message = MarkdownMessageGenerator.GenerateTicketMessage(payload, response);
-
-        await Task.WhenAll(
-            trello.CreateTrelloCard("New Repository Created!", message),
-            telegramService.PostToChannel(-1002017960385, message)
-        );
-
+        await webHookService.HandleRepoCreated(payload.ToDomainModel(), true, true);
         return Results.Ok();
     }
 }

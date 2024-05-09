@@ -1,9 +1,10 @@
-﻿using EduAutomation.Domain.Trello;
+﻿using EduAutomation.Application.Trello;
+using EduAutomation.Domain.Trello;
 using Manatee.Trello;
 
-namespace EduAutomation.Services;
+namespace EduAutomation.Infrastructure.Trello;
 
-public class TrelloService : ITrelloService
+public class TrelloClient : ITrelloService
 {
     public async Task<ICard> CreateTrelloCard(TrelloCard card, TrelloOptions options)
     {

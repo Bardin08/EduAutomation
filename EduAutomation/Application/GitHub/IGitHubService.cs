@@ -1,9 +1,9 @@
-﻿using EduAutomation.Rest.GitHub.Models;
-using EduAutomation.Services;
+﻿using EduAutomation.Domain.GitHub;
+using EduAutomation.Infrastructure.GitHub;
 
 namespace EduAutomation.Application.GitHub;
 
 public interface IGitHubService
 {
-    Task<RepoAssignResponse> AssignRepoToAppropriateTeams(Repository repo);
+    Task<RepoAssignResponse> AssignRepoToAppropriateTeams(Repo repo);
 }

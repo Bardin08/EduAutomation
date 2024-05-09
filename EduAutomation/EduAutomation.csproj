@@ -10,6 +10,8 @@
         <PackageReference Include="GithubWebhook" Version="1.1.0" />
         <PackageReference Include="Manatee.Trello" Version="4.4.3" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
         <PackageReference Include="Telegram.Bot" Version="19.0.0" />
     </ItemGroup>
@@ -19,7 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\Abstractions\" />
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

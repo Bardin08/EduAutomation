@@ -2,14 +2,9 @@
 using EduAutomation.Domain.GitHub.Events;
 using EduAutomation.Domain.Trello;
 
-namespace EduAutomation.Application.Formatters;
+namespace EduAutomation.Application.Trello.Formatters;
 
-public interface ITrelloCardFormatter
-{
-    public TrelloCard GetCard<TEvent>(TEvent e, Dictionary<string, string> paramsBag);
-}
-
-public class TrelloMarkdownCardFormatter : ITrelloCardFormatter
+public class MarkdownCardFormatter : ITrelloCardFormatter
 {
     public TrelloCard GetCard<TEvent>(TEvent e, Dictionary<string, string> paramsBag)
     {
@@ -21,7 +16,7 @@ public class TrelloMarkdownCardFormatter : ITrelloCardFormatter
         }
 
         throw new ArgumentException(
-            $"{nameof(TrelloMarkdownCardFormatter)} doesn't support {e.GetType().Name} events");
+            $"{nameof(MarkdownCardFormatter)} doesn't support {e.GetType().Name} events");
     }
 
     private TrelloCard GetRepoCreatedCard(RepoCreated? e, Dictionary<string, string> paramsBag)

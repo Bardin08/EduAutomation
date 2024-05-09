@@ -1,4 +1,4 @@
-﻿namespace EduAutomation.Services;
+﻿namespace EduAutomation.Application.Telegram;
 
 public interface ITelegramService
 {
