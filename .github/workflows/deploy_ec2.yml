@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v4
 
@@ -45,7 +46,6 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
           docker build -t ghcr.io/bardin08/eduautomation/my-api-image .
           
           # Extract the release version (adjust if needed)
