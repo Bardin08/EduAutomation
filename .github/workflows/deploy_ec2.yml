@@ -65,4 +65,4 @@ jobs:
 
             docker login ghcr.io -u bardin08 -p ${{ secrets.GITHUB_TOKEN }} 
             docker pull ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}}
-            docker run -d -p 5217:80 --name edu-automation ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} 
+            docker run -d -p 5217:8080 --name edu-automation ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} 
