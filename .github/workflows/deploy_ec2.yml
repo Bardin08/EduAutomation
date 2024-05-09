@@ -34,9 +34,9 @@ jobs:
           Trello.BoardId: ${{ secrets.TRELLO_BOARD_ID }}
           Trello.ListId: ${{ secrets.TRELLO_LIST_ID }}
 
-          GitHub.PatToken: ${{ secrets.GITHUB_PAT }}
+          GitHub.PatToken: ${{ secrets.GH_PAT }}
 
-          TELEGRAM.BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM.BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM.CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
 
       - name: Login to GitHub Container Registry
