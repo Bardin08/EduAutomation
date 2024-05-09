@@ -46,10 +46,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
+          RELEASE_LABEL="${{ github.event.release.tag_name}}" 
           docker build -t ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} .
-          
-          RELEASE_VERSION=$(echo "${{ github.event.release.tag_name }}" | cut -c 2-)
-          RELEASE_LABEL="${RELEASE_VERSION}" 
 
           docker tag ghcr.io/bardin08/eduautomation:latest ghcr.io/bardin08/eduautomation:${RELEASE_LABEL} 
           docker push ghcr.io/bardin08/eduautomation --all-tags 
