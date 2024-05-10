@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using EduAutomation.Application.Helpers;
 using EduAutomation.Domain.GitHub.Events;
 
 namespace EduAutomation.Application.Telegram.Formatters;
@@ -28,10 +29,10 @@ public class MarkdownMessageFormatter : ITelegramMessageFormatter
         var builder = new StringBuilder();
 
         builder.AppendLine("**Repo Created**");
-        builder.AppendLine($"* **Repository:** [{repoCreated.Repo.Name}]({repoCreated.Repo.Url})");
-        builder.AppendLine($"* **Organization:** [{repoCreated.Org.Name}]({repoCreated.Org.Url})");
-        builder.AppendLine($"* **Created By:** [{repoCreated.Sender.Login}]({repoCreated.Sender.Url})");
-        builder.AppendLine($"* **Date:** {DateTime.Now.ToString("MMMM dd, yyyy")}");
+        builder.AppendLine($"**Repository:** [{repoCreated.Repo.Name}]({repoCreated.Repo.Url})");
+        builder.AppendLine($"**Organization:** [{repoCreated.Org.Name}]({repoCreated.Org.Url})");
+        builder.AppendLine($"**Created By:** [{repoCreated.Sender.Login.NormalizeLinkText()}]({repoCreated.Sender.Url})");
+        builder.AppendLine($"**Date:** {DateTime.Now.ToString("MMMM dd, yyyy")}");
 
         TryAddAssignees(builder, paramsBag);
 
