@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to DROPLET
 
 on:
   release:
@@ -50,12 +50,12 @@ jobs:
           docker tag ghcr.io/bardin08/eduautomation:${{ github.event.release.tag_name}} ghcr.io/bardin08/eduautomation:latest
           docker push ghcr.io/bardin08/eduautomation --all-tags 
 
-      - name: Deploy to EC2
+      - name: Deploy to DROPLET
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_KEY }}
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DROPLET_KEY }}
           script: |
             docker container ls -q --filter name=edu-automation > /tmp/current_container_id || true  # Get the container ID if it exists
             if [ -s /tmp/current_container_id ]; then  # Check if previous container exists and is running
