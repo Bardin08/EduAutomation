@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using EduAutomation.Application.Helpers;
 using EduAutomation.Domain.GitHub.Events;
 using EduAutomation.Domain.Trello;
 
@@ -42,7 +43,7 @@ public class MarkdownCardFormatter : ITrelloCardFormatter
         // Organization and Creator
         builder.AppendLine("**Organization and Creator**");
         builder.AppendLine($"- **Organization:** [{e.Org.Name}](https://github.com/{e.Org.Name})");
-        builder.AppendLine($"- **Creator:** [{NormalizedSenderLogin(e)}]({e.Sender.Url})");
+        builder.AppendLine($"- **Creator:** [{e.Sender.Login.NormalizeLinkText()}]({e.Sender.Url})");
         builder.AppendLine();
 
         // Assignment
@@ -83,10 +84,5 @@ public class MarkdownCardFormatter : ITrelloCardFormatter
         {
             builder.AppendLine($"**Mentor:** {mentorName}");
         }
-    }
-
-    private string NormalizedSenderLogin(RepoCreated? e)
-    {
-        return e.Sender.Login.Replace("[bot]", "_bot");
     }
 }

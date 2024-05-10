@@ -13,7 +13,7 @@ public static class RepoEventMapper
                 Id: p.Repository.Id,
                 Name: p.Repository.Name,
                 FullName: p.Repository.FullName,
-                Url: p.Repository.Url,
+                Url: p.Repository.HtmlUrl,
                 CloneUrl: p.Repository.CloneUrl,
                 CreatedAt: p.Repository.CreatedAt ?? DateTimeOffset.MinValue,
                 UpdatedAt: p.Repository.UpdatedAt ?? DateTimeOffset.MinValue,
@@ -21,19 +21,19 @@ public static class RepoEventMapper
                 Owner: new EduAutomation.Domain.GitHub.User(
                     Id: p.Repository.Owner.Id,
                     Login: p.Repository.Owner.Login,
-                    Url: p.Repository.Owner.Url,
+                    Url: p.Repository.Owner.HtmlUrl,
                     AvatarUrl: p.Repository.Owner.AvatarUrl
                 )
             ),
             Org: new Org(
                 Id: p.Organization.Id,
-                Name: p.Organization.Login, // Using Login as substitute for Name
-                Url: p.Organization.Url
+                Name: p.Organization.Login,
+                Url: p.Organization.HtmlUrl
             ),
             Sender: new EduAutomation.Domain.GitHub.User(
                 Id: p.Sender.Id,
                 Login: p.Sender.Login,
-                Url: p.Sender.Url,
+                Url: p.Sender.HtmlUrl,
                 AvatarUrl: p.Sender.AvatarUrl
             )
         );
