@@ -53,6 +53,7 @@ jobs:
       - name: Deploy to DROPLET
         uses: appleboy/ssh-action@master
         with:
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_KEY }}
