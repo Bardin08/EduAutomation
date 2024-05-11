@@ -20,6 +20,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/api/webhook", GitHubEndpoints.RepositoryCreatedWebhook);
+app.MapPost("/api/github-repo-webhook", GitHubEndpoints.RepositoryCreatedWebhook);
 
 app.Run();
