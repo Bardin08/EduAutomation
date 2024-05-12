@@ -21,5 +21,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapPost("/api/github-repo-webhook", GitHubEndpoints.RepositoryCreatedWebhook);
+app.MapPost("/api/github/grant-access", GitHubEndpoints.GrantAccessToRepo);
 
 app.Run();
