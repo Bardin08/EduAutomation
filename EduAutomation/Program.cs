@@ -1,8 +1,11 @@
 using EduAutomation.Application;
 using EduAutomation.Infrastructure;
+using EduAutomation.Rest.Auth0;
 using EduAutomation.Rest.GitHub;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -18,8 +21,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapPost("/api/github-repo-webhook", GitHubEndpoints.RepositoryCreatedWebhook);
+
+app.MapPost("/api/auth/login", AuthEndpoints.Login);
+app.MapPost("/api/auth/register", AuthEndpoints.Register);
 
 app.Run();
