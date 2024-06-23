@@ -21,6 +21,21 @@ internal class GitHubService(
         return MapResponses(teamInfos, responses);
     }
 
+    public async Task<RepoAssignResponse> AssignRepo(GrantRepoAccess req)
+    {
+        if (!req.IsUser)
+        {
+            var teamInfo = await GetTeamInfos([req.UserOrTeamName], req.Organization);
+            var teamIds = teamInfo.Keys.ToArray();
+
+            var responses = await github.GrantAccessToRepository(
+                new RepoAssignRequest(req.Repository, req.Organization, teamIds));
+            return MapResponses(teamInfo, responses);
+        }
+
+        throw new NotImplementedException("This flow is not implemented yet");
+    }
+
     private RepoAssignResponse MapResponses(
         IReadOnlyDictionary<int, string> teamInfos,
         List<GitHubUtils.Core.RepoAssignResponse> responses)

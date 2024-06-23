@@ -25,6 +25,7 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapPost("/api/github-repo-webhook", GitHubEndpoints.RepositoryCreatedWebhook);
+app.MapPost("/api/github/grant-access", GitHubEndpoints.GrantAccessToRepo);
 
 app.MapPost("/api/auth/login", AuthEndpoints.Login);
 app.MapPost("/api/auth/register", AuthEndpoints.Register);
